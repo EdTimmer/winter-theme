@@ -1,10 +1,9 @@
 import { useRef, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import videoFile from './assets/videos/winter_forest.mp4';
+import videoFile from '../public/assets/videos/winter_forest.mp4';
 import SnowGroup from './components/SnowGroup';
 import './App.css'
 
@@ -122,12 +121,12 @@ function App() {
     <div className='page-container'>
       <div className="large-rings">
         <div className='scene-container'>
-          <Canvas>
-            <PerspectiveCamera makeDefault fov={20} position={[60, 10, 40]} far={70} />
+          <Canvas camera={{ position: [60, 10, 40], fov: 20, far: 70 }}>
+            {/* Camera will automatically look at the center [0,0,0] when using Canvas camera prop */}
             {/* <Snowflake scale={0.25} position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]} /> */}
-            <SnowGroup position={[0, 0, 0]} rotation={[Math.PI / 2, 0.2, 0]} scale={0.145} count={2} rotationSpeed={0.2} />
+            <SnowGroup position={[0, 0, 0]} rotation={[Math.PI / 2, 0.2, 0]} scale={0.145} count={2} rotationSpeed={0.08} />
             <ambientLight intensity={0.5} />
-            <OrbitControls />
+            {/* <OrbitControls enableZoom={false} /> */}
           </Canvas>
         </div>
       </div>

@@ -23,7 +23,6 @@ const SnowGroup = forwardRef<THREE.Group, Props>(({ position, rotation, scale, c
   });
 
   const hexPositions = getHexagonVertices(200);
-  console.log('hexPositions[0] :>> ', hexPositions[0]);
 
   // Function to get a random number between -12 and 12
   const getRandomOffset = () => (Math.random() * 24) - 12;
@@ -64,15 +63,15 @@ const SnowGroup = forwardRef<THREE.Group, Props>(({ position, rotation, scale, c
       {count >= 2 && (
         <group>
         <group position={[0, 0, -20]} rotation={[0, 0, Math.PI / 6]}>
-          <Snowflake position={hexPositions[0]} rotation={[0, 0, 4]} scale={1.4} />
-          <Snowflake position={hexPositions[1]} rotation={[0, 0, 3]} scale={1.4} />
-          <Snowflake position={hexPositions[2]} rotation={[0, 0, 4]} scale={1.4} />
-          <Snowflake position={hexPositions[3]} rotation={[0, 0, 0]} scale={1.4} />
-          <Snowflake position={hexPositions[4]} rotation={[0, 0, 2]} scale={1.4} />
-          <Snowflake position={hexPositions[5]} rotation={[0, 0, 0]} scale={1.4} />
+          <Snowflake position={hexPositions[0]} rotation={[0, 0, 4]} scale={1.6} />
+          <Snowflake position={hexPositions[1]} rotation={[0, 0, 3]} scale={1.2} />
+          <Snowflake position={hexPositions[2]} rotation={[0, 0, 4]} scale={1.6} />
+          <Snowflake position={hexPositions[3]} rotation={[0, 0, 0]} scale={1.2} />
+          <Snowflake position={hexPositions[4]} rotation={[0, 0, 2]} scale={1.6} />
+          <Snowflake position={hexPositions[5]} rotation={[0, 0, 0]} scale={1.2} />
         </group>
 
-        <group position={[0.2, 0.2, 0]} rotation={[0.2, 0.2, Math.PI / 6]}>
+        <group position={[0.4, 0.4, 0]} rotation={[0.2, 0.2, Math.PI / 6]}>
           <Snowflake position={hexPositions[0]} rotation={[0, 0, 0]} scale={1.2} />
           <Snowflake position={hexPositions[1]} rotation={[0, 0, 1]} scale={1.6} />
           <Snowflake position={hexPositions[2]} rotation={[0, 0, 4]} scale={1.2} />
