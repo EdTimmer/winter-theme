@@ -1,0 +1,198 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+h1 {
+  font-size: 44px;
+}
+
+h2 {
+  font-size: 34px;
+}
+
+.page-container {
+  position: relative;
+  width: 100vw;
+  display: flex;
+  background-color: #0B1215;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  border: 2px solid white;
+  margin: 4px;
+  position: relative;
+  -webkit-mask: radial-gradient(circle at center, transparent 36px, black 40px);
+  mask: radial-gradient(circle at center, transparent 36px, black 40px);
+}
+
+.inner-box {
+  width: 80px;
+  height: 80px;
+  background-color: transparent;
+  border-radius: 100px;
+  border: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 999;
+}
+
+.box1 {
+  background-color: #61b3fb;
+  z-index: 10;
+}
+
+.box2 {
+  background-color: #fbf861;
+  margin-top: 56px;
+  margin-left: -52px;
+  margin-right: -52px;
+  z-index: 20;
+}
+
+.box3 {
+  background-color: #000000;
+  z-index: 30;
+}
+
+.box4 {
+  background-color: #61fb8c;
+  margin-top: 56px;
+  margin-left: -52px;
+  margin-right: -52px;
+  z-index: 40;
+}
+
+.box5 {
+  background-color: #fb61a9;
+  z-index: 50;
+}
+
+.row-one {
+  /* margin-top: 700px; */
+  width: 100%;
+  border-top: 1px solid #444;
+  border-bottom: 1px solid #444;
+  padding: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.row-two {
+  width: 100%;
+  border-top: 1px solid #444;
+  border-bottom: 1px solid #444;
+  padding: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.vid {
+  width: 50%;
+  height: 180vh;
+  position: relative;
+}
+
+section.vid div.holder {
+  position: sticky;
+  top: 0;
+}
+
+section.vid video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+section.vid div.story {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+}
+
+section.vid div.story div {
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+
+.vid-holder {
+  width: 100%;
+}
+
+section.vid div.story-container {
+  position: absolute;
+  top: 60px;
+  left: 40px;
+  width: 50%;
+  height: 400px;
+  overflow: hidden;
+}
+
+.text-one {
+  margin-bottom: 10px;
+  text-align: left;
+  /* position: absolute;
+  top: 50px;
+  left: 20px;
+  width: 70%;
+  text-align: left; */
+}
+
+.text-two {
+  margin-bottom: 10px;
+  text-align: left;
+  /* position: absolute;
+  top: 300px;
+  left: 20px;
+  width: 70%;
+  text-align: left; */
+}
+
+.text-three {
+  margin-bottom: 10px;
+  text-align: left;
+  /* position: absolute;
+  top: 550px;
+  left: 20px;
+  width: 70%;
+  text-align: left; */
+}
+
+.large-rings {
+  position: relative;
+  width: 100%;
+  height: 700px;
+  overflow: hidden;
+}
+
+.scene-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1500px;
+  height: 1500px;
+  z-index: 0;
+  margin-top: -500px;
+}

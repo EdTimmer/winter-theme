@@ -1,0 +1,205 @@
+import { useRef, useEffect } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import videoFile from './assets/videos/winter_forest.mp4';
+
+
+import './App.css'
+import Snowflake from './components/Snowflake';
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+
+
+function App() {
+  const container = useRef(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const { contextSafe } = useGSAP({ scope: container });
+
+  const onClickBox = contextSafe(() => {
+    gsap.to('.box', { rotation: '+=180' });
+  });
+
+  useGSAP(
+    () => {
+      gsap.to(['.box5', '.box4', '.box3', '.box2', '.box1'], {
+        x: '50vw',
+        // rotation: 360 * 4,
+        stagger: 0.1, // Stagger the animations by 0.1 seconds
+        scrollTrigger: {
+          trigger: document.body,
+          start: "top top",
+          end: "400px",
+          scrub: 1,
+        }
+      });
+    },
+    { scope: container }
+  );
+
+  useGSAP(
+    () => {
+      // Create a timeline
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: document.body,
+          start: "800px",
+          end: "1800px",
+          scrub: 1,
+        }
+      });
+
+      // First, ensure text-one starts visible and text-two starts hidden
+      gsap.set('.text-one', { opacity: 1 });
+      gsap.set('.text-two', { opacity: 0 });
+      gsap.set('.text-three', { opacity: 0 });
+
+      // Sequential text animations with extended display time for text-two
+      // Text-two now displays for 4 seconds with 0.5s fade transitions
+      tl.to('.text-one', { opacity: 0, duration: 0.5 })           // 0-0.5s: fade out text-one
+        .to('.text-two', { opacity: 1, duration: 0.5 }, 0.5)     // 0.5-1s: fade in text-two
+        .to('.text-two', { opacity: 0, duration: 0.5 }, 4.5)     // 4.5-5s: fade out text-two (displayed for 4s)
+        .to('.text-three', { opacity: 1, duration: 0.5 }, 5.0);   // 5-5.5s: fade in text-three
+
+    }
+    // Removed scope so it can access elements anywhere in the document
+  );
+
+  useEffect(() => {
+    if (videoRef.current) {
+      // videoRef.current.playbackRate = 0.5;
+      videoRef.current.pause(); // Pause the video when component mounts
+    }
+  }, []);
+
+  useEffect(() => {
+    let lastSetTime = -1; // Track the last time we set to avoid redundant updates
+    
+    const scroll = () => {
+      const vid = videoRef.current;
+      const section = sectionRef.current;
+      
+      if (!vid || !section || vid.duration <= 0) return;
+      
+      const distance = window.scrollY - section.offsetTop;
+      const total = section.clientHeight - window.innerHeight;
+      let targetTime;
+
+      // Only proceed if we're in the scrollable range of the video section
+      if (distance < 0) {
+        // Before the video section starts
+        targetTime = 0;
+      } else if (distance >= total) {
+        // After the video section ends
+        targetTime = vid.duration;
+      } else {
+        // We're within the video section, calculate percentage
+        let percentage = distance / total;
+        percentage = Math.max(0, Math.min(percentage, 1));
+        targetTime = vid.duration * percentage;
+      }
+
+      // Only update currentTime if it's significantly different to prevent flickering
+      const timeDiff = Math.abs(vid.currentTime - targetTime);
+      if (timeDiff > 0.016 || lastSetTime !== targetTime) { // ~1 frame at 60fps
+        vid.currentTime = targetTime;
+        lastSetTime = targetTime;
+      }
+    };
+
+    scroll();
+    window.addEventListener('scroll', scroll);
+
+    // Cleanup function to remove event listener
+    return () => {
+      window.removeEventListener('scroll', scroll);
+    };
+  }, []);
+
+  return (
+    <div className='page-container'>
+      <div className="large-rings">
+        <div className='scene-container'>
+          <Canvas>
+            <PerspectiveCamera makeDefault fov={20} position={[0, 0, 10]} />
+            <Snowflake scale={0.25} position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]} />
+            <ambientLight intensity={0.5} />
+            <OrbitControls />
+          </Canvas>
+        </div>
+      </div>
+
+
+      <div ref={container} className='row-one'>
+        <div className='box box1' onClick={onClickBox}>
+          <div className='inner-box'>
+            Box 1
+          </div>
+        </div>
+        <div className='box box2' onClick={onClickBox}>
+          <div className='inner-box'>
+            Box 2
+          </div>
+        </div>
+        <div className='box box3' onClick={onClickBox}>
+          <div className='inner-box'>
+            Box 3
+          </div>
+
+        </div>
+        <div className='box box4' onClick={onClickBox}>
+          <div className='inner-box'>
+            Box 4
+          </div>
+        </div>
+        <div className='box box5' onClick={onClickBox}>
+          <div className='inner-box'>
+            Box 5
+          </div>
+        </div>
+      </div>
+      <div className='row-two'>
+        <section ref={sectionRef} className="vid">
+          <div className="holder">
+            <video ref={videoRef} autoPlay muted loop>
+              <source src={videoFile} type="video/mp4" />
+            </video>
+            <div className="story-container">
+              <div className='text-one'>
+                <h1>Scroll to Scrub</h1>
+              </div>
+              <div className='text-two'>
+                <h2>This video is linked to the scroll position. Scroll down to scrub through the video.</h2>
+              </div>
+              <div className='text-three'>
+                <h2>Scroll back up to reverse.</h2>
+              </div>
+              </div>
+          </div>
+
+          {/* <div className="story">
+            <div className='text1'>
+              <h1>Scroll to Scrub</h1>
+            </div>
+            <div className='text2'>
+              <h1>This video is linked to the scroll position. Scroll down to scrub through the video.</h1>
+            </div>
+            <div className='text3'>
+              <h1>Scroll back up to reverse.</h1>
+            </div>
+          </div> */}
+          {/* <div className="story-container"> */}
+
+          {/* </div> */}
+        </section>
+      </div>
+    </div>
+  )
+}
+
+export default App
+
