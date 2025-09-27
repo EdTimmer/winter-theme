@@ -2,8 +2,8 @@ import { useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import vertexShader from '../assets/shaders/vertex-shader.glsl?raw';
-import fragmentShader from '../assets/shaders/fragment-shader.glsl?raw';
+import vertexShader from '../../assets/shaders/vertex-shader.glsl?raw';
+import fragmentShader from '../../assets/shaders/fragment-shader.glsl?raw';
 
 interface Props {
   children?: React.ReactNode;
@@ -20,6 +20,10 @@ const Snowflake = ({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0] }: Pr
   const shaderMaterial = new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
+    uniforms: {
+      uTime: { value: 0.0 },
+      uOffset: { value: Math.random() * 2.0 }
+    },
     side: THREE.DoubleSide, // Render both front and back faces
   });
 
@@ -29,15 +33,20 @@ const Snowflake = ({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0] }: Pr
     
     const time = state.clock.elapsedTime;
     
+    // Update shader uniform with elapsed time
+    shaderMaterial.uniforms.uTime.value = time;
+    
     // Add the initial rotation prop to the animated rotations
     // Slight back-and-forth rotation on X axis (using sine wave for smooth motion)
-    groupRef.current.rotation.x = rotation[0] + Math.sin(time * 0.5) * 0.4;
+    // groupRef.current.rotation.x = rotation[0] + Math.sin(time * 0.5) * 0.4;
+    groupRef.current.rotation.x = rotation[0] + (-time * 0.3);
     
     // Slight back-and-forth rotation on Y axis (different frequency for variety)
-    groupRef.current.rotation.y = rotation[1] + Math.sin(time * 0.3 + 1) * 0.3;
+    // groupRef.current.rotation.y = rotation[1] + Math.sin(time * 0.3 + 1) * 0.3;
+    groupRef.current.rotation.y = rotation[1] + (-time * 0.3);
     
     // Continuous slow rotation around Z axis
-    // groupRef.current.rotation.z = rotation[2] + (-time * 0.1);
+    groupRef.current.rotation.z = rotation[2] + (-time * 0.3);
   });
 
   return (

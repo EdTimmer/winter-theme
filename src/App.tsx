@@ -5,10 +5,8 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import videoFile from './assets/videos/winter_forest.mp4';
-
-
+import SnowGroup from './components/SnowGroup';
 import './App.css'
-import Snowflake from './components/Snowflake';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -125,8 +123,9 @@ function App() {
       <div className="large-rings">
         <div className='scene-container'>
           <Canvas>
-            <PerspectiveCamera makeDefault fov={20} position={[0, 0, 10]} />
-            <Snowflake scale={0.25} position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]} />
+            <PerspectiveCamera makeDefault fov={20} position={[60, 10, 40]} far={70} />
+            {/* <Snowflake scale={0.25} position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]} /> */}
+            <SnowGroup position={[0, 0, 0]} rotation={[Math.PI / 2, 0.2, 0]} scale={0.145} count={2} rotationSpeed={0.2} />
             <ambientLight intensity={0.5} />
             <OrbitControls />
           </Canvas>
