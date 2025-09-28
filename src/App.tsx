@@ -23,8 +23,14 @@ function App() {
 
   useGSAP(
     () => {
+      // Set starting position with margin from left
+      gsap.set(['.box5', '.box4', '.box3', '.box2', '.box1'], {
+        x: '3vw' // Start at 3% of viewport width
+      });
+      
+      // Use a more conservative end position that works on smaller screens
       gsap.to(['.box5', '.box4', '.box3', '.box2', '.box1'], {
-        x: '50vw',
+        x: '75vw', // Reduced from 85vw to 75vw for smaller screens
         // rotation: 360 * 4,
         stagger: 0.1, // Stagger the animations by 0.1 seconds
         scrollTrigger: {
@@ -171,28 +177,13 @@ function App() {
                 <h1>Scroll to Scrub</h1>
               </div>
               <div className='text-two'>
-                <h2>This video is linked to the scroll position. Scroll down to scrub through the video.</h2>
+                <h1>This video is linked to the scroll position. Scroll down to scrub through the video.</h1>
               </div>
               <div className='text-three'>
-                <h2>Scroll back up to reverse.</h2>
+                <h1>Scroll back up to reverse.</h1>
               </div>
               </div>
           </div>
-
-          {/* <div className="story">
-            <div className='text1'>
-              <h1>Scroll to Scrub</h1>
-            </div>
-            <div className='text2'>
-              <h1>This video is linked to the scroll position. Scroll down to scrub through the video.</h1>
-            </div>
-            <div className='text3'>
-              <h1>Scroll back up to reverse.</h1>
-            </div>
-          </div> */}
-          {/* <div className="story-container"> */}
-
-          {/* </div> */}
         </section>
       </div>
     </div>
