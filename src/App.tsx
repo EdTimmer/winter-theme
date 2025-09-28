@@ -6,43 +6,45 @@ import { useGSAP } from '@gsap/react';
 import videoFile from '../public/assets/videos/winter_forest.mp4';
 import SnowGroup from './components/SnowGroup';
 import './App.css'
+import { OrbitControls } from '@react-three/drei';
+import Sliders from './components/Sliders';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 
 
 function App() {
-  const container = useRef(null);
+  // const container = useRef(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  const { contextSafe } = useGSAP({ scope: container });
+  // const { contextSafe } = useGSAP({ scope: container });
 
-  const onClickBox = contextSafe(() => {
-    gsap.to('.box', { rotation: '+=180' });
-  });
+  // const onClickBox = contextSafe(() => {
+  //   gsap.to('.box', { rotation: '+=180' });
+  // });
 
-  useGSAP(
-    () => {
-      // Set starting position with margin from left
-      gsap.set(['.box5', '.box4', '.box3', '.box2', '.box1'], {
-        x: '3vw' // Start at 3% of viewport width
-      });
+  // useGSAP(
+  //   () => {
+  //     // Set starting position with margin from left
+  //     gsap.set(['.box5', '.box4', '.box3', '.box2', '.box1'], {
+  //       x: '3vw' // Start at 3% of viewport width
+  //     });
       
-      // Use a more conservative end position that works on smaller screens
-      gsap.to(['.box5', '.box4', '.box3', '.box2', '.box1'], {
-        x: '75vw', // Reduced from 85vw to 75vw for smaller screens
-        // rotation: 360 * 4,
-        stagger: 0.1, // Stagger the animations by 0.1 seconds
-        scrollTrigger: {
-          trigger: document.body,
-          start: "top top",
-          end: "400px",
-          scrub: 1,
-        }
-      });
-    },
-    { scope: container }
-  );
+  //     // Use a more conservative end position that works on smaller screens
+  //     gsap.to(['.box5', '.box4', '.box3', '.box2', '.box1'], {
+  //       x: '75vw', // Reduced from 85vw to 75vw for smaller screens
+  //       // rotation: 360 * 4,
+  //       stagger: 0.1, // Stagger the animations by 0.1 seconds
+  //       scrollTrigger: {
+  //         trigger: document.body,
+  //         start: "top top",
+  //         end: "400px",
+  //         scrub: 1,
+  //       }
+  //     });
+  //   },
+  //   { scope: container }
+  // );
 
   useGSAP(
     () => {
@@ -132,13 +134,13 @@ function App() {
             {/* <Snowflake scale={0.25} position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]} /> */}
             <SnowGroup position={[0, 0, 0]} rotation={[Math.PI / 2, 0.2, 0]} scale={0.145} count={2} rotationSpeed={0.08} />
             <ambientLight intensity={0.5} />
-            {/* <OrbitControls enableZoom={false} /> */}
+            {/* <OrbitControls enableZoom={true} /> */}
           </Canvas>
         </div>
       </div>
 
 
-      <div ref={container} className='row-one'>
+      {/* <div ref={container} className='row-one'>
         <div className='box box1' onClick={onClickBox}>
           <div className='inner-box'>
             Box 1
@@ -165,7 +167,10 @@ function App() {
             Box 5
           </div>
         </div>
-      </div>
+      </div> */}
+
+      <Sliders />
+
       <div className='row-two'>
         <section ref={sectionRef} className="vid">
           <div className="holder">
