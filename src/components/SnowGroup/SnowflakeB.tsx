@@ -2,8 +2,8 @@ import { useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import vertexShader from '../../../public/assets/shaders/vertex-shader.glsl?raw';
-import fragmentShader from '../../../public/assets/shaders/fragment-shader.glsl?raw';
+import vertexShader from '../../../public/assets/shaders/two/vertex-shader.glsl?raw';
+import fragmentShader from '../../../public/assets/shaders/two/fragment-shader.glsl?raw';
 
 interface Props {
   children?: React.ReactNode;
@@ -12,9 +12,9 @@ interface Props {
   rotation?: [number, number, number];
 }
 
-const Snowflake = ({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0] }: Props) => {
+const SnowflakeB = ({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0] }: Props) => {
   const groupRef = useRef<THREE.Group>(null);
-  const { nodes } = useGLTF('../public/assets/models/snowflake_3.glb'); 
+  const { nodes } = useGLTF('../public/assets/models/snowflake_6.glb'); 
 
   // Create custom shader material
   const shaderMaterial = new THREE.ShaderMaterial({
@@ -67,4 +67,4 @@ const Snowflake = ({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0] }: Pr
   )
 }
 
-export default Snowflake;
+export default SnowflakeB;
