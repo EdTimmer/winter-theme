@@ -14,7 +14,7 @@ interface Props {
 
 const SnowflakeB = ({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0] }: Props) => {
   const groupRef = useRef<THREE.Group>(null);
-  const { nodes } = useGLTF('../public/assets/models/snowflake_6.glb'); 
+  const { nodes } = useGLTF('../public/assets/models/snowflake_11.glb'); 
 
   // Create custom shader material
   const shaderMaterial = new THREE.ShaderMaterial({
@@ -59,7 +59,7 @@ const SnowflakeB = ({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0] }: P
               key={mesh.uuid}
               geometry={mesh.geometry}
               material={shaderMaterial}
-              scale={scale}
+              scale={scale - 0.2}
             />
           ))
       }
