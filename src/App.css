@@ -16,9 +16,9 @@ h1.header {
   }  
 
 
-/* h2 {
+h2 {
   font-size: 34px;
-} */
+}
 
 .page-container {
   position: relative;
@@ -228,8 +228,8 @@ section.vid div.story-container {
 
 .title-container {
   position: absolute;
-  top: 40px;
-  left: 40px;
+  top: 60px;
+  left: 60px;
   color: rgb(232, 250, 251);
   font-size: 48px;
   font-weight: bold;

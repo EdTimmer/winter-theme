@@ -124,13 +124,13 @@ function App() {
             </video>
             <div className="story-container">
               <div className='text-one'>
-                <h1>Scroll to Scrub</h1>
+                <h2>Scroll to Scrub</h2>
               </div>
               <div className='text-two'>
-                <h1>This video is linked to the scroll position. Scroll down to scrub through the video.</h1>
+                <h2>This video is linked to the scroll position. Scroll down to scrub through the video.</h2>
               </div>
               <div className='text-three'>
-                <h1>Scroll back up to reverse.</h1>
+                <h2>Scroll back up to reverse.</h2>
               </div>
               </div>
           </div>
