@@ -14,37 +14,8 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 
 function App() {
-  // const container = useRef(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  // const { contextSafe } = useGSAP({ scope: container });
-
-  // const onClickBox = contextSafe(() => {
-  //   gsap.to('.box', { rotation: '+=180' });
-  // });
-
-  // useGSAP(
-  //   () => {
-  //     // Set starting position with margin from left
-  //     gsap.set(['.box5', '.box4', '.box3', '.box2', '.box1'], {
-  //       x: '3vw' // Start at 3% of viewport width
-  //     });
-      
-  //     // Use a more conservative end position that works on smaller screens
-  //     gsap.to(['.box5', '.box4', '.box3', '.box2', '.box1'], {
-  //       x: '75vw', // Reduced from 85vw to 75vw for smaller screens
-  //       // rotation: 360 * 4,
-  //       stagger: 0.1, // Stagger the animations by 0.1 seconds
-  //       scrollTrigger: {
-  //         trigger: document.body,
-  //         start: "top top",
-  //         end: "400px",
-  //         scrub: 1,
-  //       }
-  //     });
-  //   },
-  //   { scope: container }
-  // );
 
   useGSAP(
     () => {
@@ -128,6 +99,9 @@ function App() {
   return (
     <div className='page-container'>
       <div className="large-rings">
+        <div className='title-container'>
+          <h1 className="header">Winter Wonderland</h1>
+        </div>
         <div className='scene-container'>
           <Canvas camera={{ position: [60, 10, 40], fov: 20, far: 70 }}>
             {/* Camera will automatically look at the center [0,0,0] when using Canvas camera prop */}
@@ -138,36 +112,6 @@ function App() {
           </Canvas>
         </div>
       </div>
-
-
-      {/* <div ref={container} className='row-one'>
-        <div className='box box1' onClick={onClickBox}>
-          <div className='inner-box'>
-            Box 1
-          </div>
-        </div>
-        <div className='box box2' onClick={onClickBox}>
-          <div className='inner-box'>
-            Box 2
-          </div>
-        </div>
-        <div className='box box3' onClick={onClickBox}>
-          <div className='inner-box'>
-            Box 3
-          </div>
-
-        </div>
-        <div className='box box4' onClick={onClickBox}>
-          <div className='inner-box'>
-            Box 4
-          </div>
-        </div>
-        <div className='box box5' onClick={onClickBox}>
-          <div className='inner-box'>
-            Box 5
-          </div>
-        </div>
-      </div> */}
 
       <Sliders />
 

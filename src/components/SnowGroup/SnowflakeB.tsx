@@ -59,7 +59,7 @@ const SnowflakeB = ({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0] }: P
               key={mesh.uuid}
               geometry={mesh.geometry}
               material={shaderMaterial}
-              scale={scale - 0.2}
+              scale={scale - 0.3}
             />
           ))
       }
