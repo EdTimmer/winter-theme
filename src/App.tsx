@@ -3,7 +3,8 @@ import { Canvas } from '@react-three/fiber';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import videoFile from '../public/assets/videos/winter_forest.mp4';
+// Video file is served from the public folder, so reference via root-absolute path
+const videoFile = '/assets/videos/winter_forest.mp4';
 import SnowGroup from './components/SnowGroup';
 import './App.css'
 // import { OrbitControls } from '@react-three/drei';

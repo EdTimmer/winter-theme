@@ -14,7 +14,7 @@ interface Props {
 
 const SnowflakeC = ({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0] }: Props) => {
   const groupRef = useRef<THREE.Group>(null);
-  const { nodes } = useGLTF('../public/assets/models/snowflake_12.glb'); 
+  const { nodes } = useGLTF('/assets/models/snowflake_12.glb'); 
 
   // Create custom shader material
   const shaderMaterial = new THREE.ShaderMaterial({
