@@ -6,7 +6,7 @@ import { useGSAP } from '@gsap/react';
 import videoFile from '../public/assets/videos/winter_forest.mp4';
 import SnowGroup from './components/SnowGroup';
 import './App.css'
-import { OrbitControls } from '@react-three/drei';
+// import { OrbitControls } from '@react-three/drei';
 import Sliders from './components/Sliders';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
