@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 // Video file is served from the public folder, so reference via root-absolute path
-const videoFile = '/assets/videos/winter_forest.mp4';
+// const videoFile = '/assets/videos/winter_forest.mp4';
 import SnowGroup from './components/SnowGroup';
 import './App.css'
 // import { OrbitControls } from '@react-three/drei';
@@ -116,7 +116,7 @@ function App() {
 
       <Sliders />
 
-      <div className='row-two'>
+      {/* <div className='row-two'>
         <section ref={sectionRef} className="vid">
           <div className="holder">
             <video ref={videoRef} autoPlay muted loop>
@@ -135,7 +135,7 @@ function App() {
               </div>
           </div>
         </section>
-      </div>
+      </div> */}
     </div>
   )
 }

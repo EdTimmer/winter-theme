@@ -100,6 +100,7 @@ h2 {
   flex-direction: row;
   justify-content: flex-start; /* Changed from center to flex-start */
   align-items: center;
+  margin-bottom: 1200px;
 }
 
 .boxes-container {
