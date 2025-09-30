@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { type ThreeEvent, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import vertexShader from '../../../public/assets/shaders/four/vertex-shader.glsl?raw';
-import fragmentShader from '../../../public/assets/shaders/four/fragment-shader.glsl?raw';
+import vertexShader from '../../../public/assets/shaders/six/vertex-shader.glsl?raw';
+import fragmentShader from '../../../public/assets/shaders/six/fragment-shader.glsl?raw';
 
 interface Props {
   children?: React.ReactNode;
@@ -33,6 +33,18 @@ const Circle = ({
 }: Props) => {
   const groupRef = useRef<THREE.Group>(null);
   const { nodes } = useGLTF('/assets/models/circle_2.glb'); 
+  const baseScaleRef = useRef(scale);
+  const [isPopping, setIsPopping] = useState(false);
+  const popElapsedRef = useRef(0);
+  const hasRemovedRef = useRef(false);
+
+  // Keep base scale in sync if prop changes
+  useEffect(() => {
+    baseScaleRef.current = scale;
+    if (groupRef.current && !isPopping) {
+      groupRef.current.scale.set(scale, scale, scale);
+    }
+  }, [scale, isPopping]);
 
   // Create custom shader material
   const shaderMaterial = new THREE.ShaderMaterial({
@@ -65,13 +77,30 @@ const Circle = ({
     // Slight back-and-forth rotation on X axis (using sine wave for smooth motion)
     // groupRef.current.rotation.x = rotation[0] + Math.sin(time * 0.5) * 0.4;
     // groupRef.current.rotation.x = rotation[0] + (-time * 0.3);
+    groupRef.current.position.x = position[0] + Math.sin(time * 1.5) * 0.8;
     
     // Slight back-and-forth rotation on Y axis (different frequency for variety)
     // groupRef.current.rotation.y = rotation[1] + Math.sin(time * 0.3 + 1) * 0.3;
     // groupRef.current.rotation.y = rotation[1] + (-time * 0.3);
     
     // Continuous slow rotation around Z axis
-    groupRef.current.rotation.z = isClockwiseRotation ? rotation[2] - (time * 0.3) : rotation[2] + (time * 0.3);
+    groupRef.current.rotation.z = isClockwiseRotation ? rotation[2] - (time * 1.8) : rotation[2] + (time * 1.8);
+
+    // Handle click pop animation (scale up briefly before removal)
+    if (isPopping) {
+      const POP_DURATION = 0.18; // seconds
+      const POP_TARGET = 1.35; // 15% larger
+      popElapsedRef.current += delta;
+      const t = Math.min(popElapsedRef.current / POP_DURATION, 1);
+      // easeOutQuad
+      const ease = 1 - (1 - t) * (1 - t);
+      const s = baseScaleRef.current * (1 + (POP_TARGET - 1) * ease);
+      groupRef.current.scale.set(s, s, s);
+      if (t >= 1 && !hasRemovedRef.current) {
+        hasRemovedRef.current = true;
+        onLeftClick?.(); // trigger removal after pop completes
+      }
+    }
 
     // If started, move down toward the target Y at a fixed speed (units/second)
     if (isStarted) {
@@ -116,7 +145,10 @@ const Circle = ({
               onPointerDown={(e: ThreeEvent<PointerEvent>) => {
                 e.stopPropagation();
                 if (e.button === 0 || e.pointerType !== 'mouse') {
-                  onLeftClick?.();
+                  if (!isPopping) {
+                    setIsPopping(true);
+                    popElapsedRef.current = 0;
+                  }
                 }
               }}
             />

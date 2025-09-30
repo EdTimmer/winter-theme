@@ -8,14 +8,18 @@ import { useMemo, useState } from 'react';
 
 const GameGroupWrapper = () => {
   const [started, setStarted] = useState(false);
-  const [startY, setStartY] = useState(4); // initial Y before dropping
+  const [startY, setStartY] = useState(18.5); // initial Y before dropping
   const [count, setCount] = useState(0);
 
   type ShapeType = 'square' | 'circle' | 'triangle';
   interface RowItem {
     isClockwiseRotation: any; id: string; type: ShapeType; x: number; 
-}
+  }
   interface Row { id: string; yOffset: number; items: RowItem[], isClockwiseRotation?: boolean }
+
+  // Random X offset function to avoid perfect alignment in X from -0.4 to +0.4
+  const randomOffsetX = () => (Math.random() * 0.8) - 0.4;
+  const randomOffsetY = () => (Math.random() * 0.6) - 0.3;
 
   // Build three rows with mixed shapes at x positions -4,-2,0,2,4
   const initialRows: Row[] = useMemo(() => ([
@@ -23,33 +27,66 @@ const GameGroupWrapper = () => {
       id: 'row-0',
       yOffset: 0,
       items: [
-        { id: 'r0-0', type: 'square', x: -4, isClockwiseRotation: false },
-        { id: 'r0-1', type: 'circle', x: -2, isClockwiseRotation: false },
-        { id: 'r0-2', type: 'triangle', x: 0, isClockwiseRotation: true },
-        { id: 'r0-3', type: 'square', x: 2, isClockwiseRotation: false },
-        { id: 'r0-4', type: 'circle', x: 4, isClockwiseRotation: false },
+        { id: 'r0-0', type: 'square', x: -4 + randomOffsetX(), isClockwiseRotation: false },
+        { id: 'r0-1', type: 'circle', x: -2 + randomOffsetX(), isClockwiseRotation: false },
+        { id: 'r0-2', type: 'triangle', x: 0. + randomOffsetX(), isClockwiseRotation: true },
+        { id: 'r0-3', type: 'square', x: 2 + randomOffsetX(), isClockwiseRotation: false },
+        { id: 'r0-4', type: 'circle', x: 4 + randomOffsetX(), isClockwiseRotation: false },
       ],
     },
     {
       id: 'row-1',
       yOffset: -1.5,
       items: [
-        { id: 'r1-0', type: 'triangle', x: -4, isClockwiseRotation: false },
-        { id: 'r1-1', type: 'square', x: -2, isClockwiseRotation: true },
-        { id: 'r1-2', type: 'circle', x: 0, isClockwiseRotation: false },
-        { id: 'r1-3', type: 'triangle', x: 2, isClockwiseRotation: true },
-        { id: 'r1-4', type: 'square', x: 4, isClockwiseRotation: false },
+        { id: 'r1-0', type: 'triangle', x: -4 + randomOffsetX(), isClockwiseRotation: false },
+        { id: 'r1-1', type: 'square', x: -2 + randomOffsetX(), isClockwiseRotation: true },
+        { id: 'r1-2', type: 'circle', x: 0 + randomOffsetX(), isClockwiseRotation: false },
+        { id: 'r1-3', type: 'triangle', x: 2 + randomOffsetX(), isClockwiseRotation: true },
+        { id: 'r1-4', type: 'square', x: 4 + randomOffsetX(), isClockwiseRotation: false },
       ],
     },
     {
       id: 'row-2',
       yOffset: -3,
       items: [
-        { id: 'r2-0', type: 'circle', x: -4, isClockwiseRotation: false },
-        { id: 'r2-1', type: 'triangle', x: -2, isClockwiseRotation: true },
-        { id: 'r2-2', type: 'square', x: 0, isClockwiseRotation: false },
-        { id: 'r2-3', type: 'circle', x: 2, isClockwiseRotation: true },
-        { id: 'r2-4', type: 'triangle', x: 4, isClockwiseRotation: false },
+        { id: 'r2-0', type: 'circle', x: -4 + randomOffsetX(), isClockwiseRotation: false },
+        { id: 'r2-1', type: 'triangle', x: -2 + randomOffsetX(), isClockwiseRotation: true },
+        { id: 'r2-2', type: 'square', x: 0 + randomOffsetX(), isClockwiseRotation: false },
+        { id: 'r2-3', type: 'circle', x: 2 + randomOffsetX(), isClockwiseRotation: true },
+        { id: 'r2-4', type: 'triangle', x: 4 + randomOffsetX(), isClockwiseRotation: false },
+      ],
+    },
+    {
+      id: 'row-3',
+      yOffset: -4.5,
+      items: [
+        { id: 'r0-0', type: 'square', x: -4 + randomOffsetX(), isClockwiseRotation: false },
+        { id: 'r0-1', type: 'circle', x: -2 + randomOffsetX(), isClockwiseRotation: false },
+        { id: 'r0-2', type: 'triangle', x: 0. + randomOffsetX(), isClockwiseRotation: true },
+        { id: 'r0-3', type: 'square', x: 2 + randomOffsetX(), isClockwiseRotation: false },
+        { id: 'r0-4', type: 'circle', x: 4 + randomOffsetX(), isClockwiseRotation: false },
+      ],
+    },
+    {
+      id: 'row-4',
+      yOffset: -6,
+      items: [
+        { id: 'r1-0', type: 'triangle', x: -4 + randomOffsetX(), isClockwiseRotation: false },
+        { id: 'r1-1', type: 'square', x: -2 + randomOffsetX(), isClockwiseRotation: true },
+        { id: 'r1-2', type: 'circle', x: 0 + randomOffsetX(), isClockwiseRotation: false },
+        { id: 'r1-3', type: 'triangle', x: 2 + randomOffsetX(), isClockwiseRotation: true },
+        { id: 'r1-4', type: 'square', x: 4 + randomOffsetX(), isClockwiseRotation: false },
+      ],
+    },
+    {
+      id: 'row-5',
+      yOffset: -7.5,
+      items: [
+        { id: 'r2-0', type: 'circle', x: -4 + randomOffsetX(), isClockwiseRotation: false },
+        { id: 'r2-1', type: 'triangle', x: -2 + randomOffsetX(), isClockwiseRotation: true },
+        { id: 'r2-2', type: 'square', x: 0 + randomOffsetX(), isClockwiseRotation: false },
+        { id: 'r2-3', type: 'circle', x: 2 + randomOffsetX(), isClockwiseRotation: true },
+        { id: 'r2-4', type: 'triangle', x: 4 + randomOffsetX(), isClockwiseRotation: false },
       ],
     },
   ]), []);
@@ -62,7 +99,7 @@ const GameGroupWrapper = () => {
 
   const handleReset = () => {
     setStarted(false);
-    setStartY(4); // reset to initial height
+    setStartY(18.5); // reset to initial height
     setCount(0); // reset counter
     setRows(initialRows); // restore all rows/items
   };
@@ -90,7 +127,7 @@ const GameGroupWrapper = () => {
                 rotation: [0, 0, 0] as [number, number, number],
                 scale: 0.5,
                 isStarted: started,
-                targetPosition: [it.x, -4, 0] as [number, number, number],
+                targetPosition: [it.x, -8 + randomOffsetY(), 0] as [number, number, number],
                 speed: 1.5,
                 isClockwiseRotation: it.isClockwiseRotation,
               };
