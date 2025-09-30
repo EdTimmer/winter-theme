@@ -9,8 +9,6 @@ import SnowGroup from './components/SnowGroup';
 import './App.css'
 // import { OrbitControls } from '@react-three/drei';
 import Sliders from './components/Sliders';
-import GameGroup from './components/GameGroup';
-import { OrthographicCamera } from '@react-three/drei';
 import GameGroupWrapper from './components/GameGroup/GameGroupWrapper';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
