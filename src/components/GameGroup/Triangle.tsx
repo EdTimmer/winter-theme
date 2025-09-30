@@ -16,6 +16,7 @@ interface Props {
   targetPosition?: [number, number, number];
   // Units per second to move the Y position
   speed?: number;
+  isClockwiseRotation?: boolean;
   // Called when the snowflake is left-clicked (or tapped on touch)
   onLeftClick?: () => void;
 }
@@ -27,10 +28,11 @@ const Triangle = ({
   isStarted = false,
   targetPosition = [0, 4, 0],
   speed = 1.5,
+  isClockwiseRotation = false,
   onLeftClick,
 }: Props) => {
   const groupRef = useRef<THREE.Group>(null);
-  const { nodes } = useGLTF('/assets/models/triangle_1.glb'); 
+  const { nodes } = useGLTF('/assets/models/triangle_2.glb'); 
 
   // Create custom shader material
   const shaderMaterial = new THREE.ShaderMaterial({
@@ -40,7 +42,7 @@ const Triangle = ({
       uTime: { value: 0.0 },
       uOffset: { value: Math.random() * 2.0 }
     },
-    side: THREE.DoubleSide, // Render both front and back faces
+    // side: THREE.DoubleSide, // Render both front and back faces
   });
 
   // Dispose material on unmount to avoid GPU leaks when removing Squares
@@ -69,7 +71,7 @@ const Triangle = ({
     // groupRef.current.rotation.y = rotation[1] + (-time * 0.3);
     
     // Continuous slow rotation around Z axis
-    // groupRef.current.rotation.z = rotation[2] + (-time * 0.3);
+    groupRef.current.rotation.z = isClockwiseRotation ? rotation[2] - (time * 0.3) : rotation[2] + (time * 0.3);
 
     // If started, move down toward the target Y at a fixed speed (units/second)
     if (isStarted) {

@@ -17,6 +17,7 @@ interface Props {
   // Units per second to move the Y position
   speed?: number;
   // Called when the snowflake is left-clicked (or tapped on touch)
+  isClockwiseRotation?: boolean;
   onLeftClick?: () => void;
 }
 
@@ -27,6 +28,7 @@ const Square = ({
   isStarted = false,
   targetPosition = [0, 4, 0],
   speed = 1.5,
+  isClockwiseRotation = false,
   onLeftClick,
 }: Props) => {
   const groupRef = useRef<THREE.Group>(null);
@@ -40,7 +42,7 @@ const Square = ({
       uTime: { value: 0.0 },
       uOffset: { value: Math.random() * 2.0 }
     },
-    side: THREE.DoubleSide, // Render both front and back faces
+    // side: THREE.DoubleSide, // Render both front and back faces
   });
 
   // Dispose material on unmount to avoid GPU leaks when removing Squares
@@ -69,7 +71,7 @@ const Square = ({
     // groupRef.current.rotation.y = rotation[1] + (-time * 0.3);
     
     // Continuous slow rotation around Z axis
-    // groupRef.current.rotation.z = rotation[2] + (-time * 0.3);
+    groupRef.current.rotation.z = isClockwiseRotation ? rotation[2] - (time * 0.3) : rotation[2] + (time * 0.3);
 
     // If started, move down toward the target Y at a fixed speed (units/second)
     if (isStarted) {
